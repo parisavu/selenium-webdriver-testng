@@ -3,8 +3,10 @@ package webdriver;
 import org.testng.annotations.Test;
 import org.testng.annotations.BeforeClass;
 import java.util.concurrent.TimeUnit;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 
 public class Topic_04_Xpath_Css_II {
@@ -22,12 +24,21 @@ public class Topic_04_Xpath_Css_II {
 		driver.manage().timeouts().implicitlyWait(15, TimeUnit.SECONDS);
 
 		// Mở application lên (AUT/ SUT)
-		driver.get("https://alada.vn/tai-khoan/dang-ky.html");
+		driver.get("https://automationfc.github.io/basic-form/");
 	}
 
 	@Test
-	public void TC_01_Empty_data() {
-
+	public void TC_01_Verify_Text() {
+		//1-  Get text của element đó ra --> Lưu vào 1 biến
+		// Biến này để kiểm tra chứa text mong muốn hay không -> Java String (contains)
+		String populationValue = driver.findElement(By.xpath("//div[@id='population']")).getText();
+		System.out.print(populationValue);
+		Assert.assertTrue(populationValue.contains("Mongolia: 500-1,000"));
+		
+		// Xpath check contains text có nằm trong element đó không
+		// Check displayd cái element có xpath đó (isDisplayed)
+		Assert.assertTrue(driver.findElement(By.xpath("//div[@id='population' and contains(string(),'Mongolia: 500-1,000')]")).isDisplayed());
+		
 		
 	}
 	
